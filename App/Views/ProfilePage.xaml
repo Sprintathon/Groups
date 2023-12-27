@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App.Views.ProfilePage"
+             Title="ProfilePage">
+    <Grid RowDefinitions="Auto,*" Padding="20">
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" ColumnDefinitions="Auto,Auto,*" ColumnSpacing="10" >
+            <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="settings.png"
+                VerticalOptions="Center" />
+            <VerticalStackLayout Grid.Column="1">
+                <Label Text="Profile" HorizontalTextAlignment="End" FontSize="30" FontAttributes="Bold"/>
+            </VerticalStackLayout>
+        </Grid>
+        <ScrollView  Grid.Row="1" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Margin="0,20,0,0" Spacing="20">
+
+                <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="22" FontAttributes="Bold"/>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text="Explore thousands of high-quality calendar week view images on Dribbble. Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1" Grid.ColumnSpan="2">
+                        <Label Text="Name" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Entry Text="John Doe" HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                </Grid>
+                <BoxView Color="Gray"
+             HeightRequest="1"
+             HorizontalOptions="Fill" />
+                <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="22" FontAttributes="Bold"/>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text="Explore thousands of high-quality calendar week view images on Dribbble. Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text=" Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+                <BoxView Color="Gray"
+             HeightRequest="1"
+             HorizontalOptions="Fill" />
+                <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="22" FontAttributes="Bold"/>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text="Explore thousands of high-quality calendar week view images on Dribbble. Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text=" Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+                <BoxView Color="Gray"
+             HeightRequest="1"
+             HorizontalOptions="Fill" />
+                <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="22" FontAttributes="Bold"/>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text="Explore thousands of high-quality calendar week view images on Dribbble. Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text=" Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+                <BoxView Color="Gray"
+             HeightRequest="1"
+             HorizontalOptions="Fill" />
+                <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="22" FontAttributes="Bold"/>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text="Explore thousands of high-quality calendar week view images on Dribbble. Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text=" Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+                <BoxView Color="Gray"
+             HeightRequest="1"
+             HorizontalOptions="Fill" />
+                <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="22" FontAttributes="Bold"/>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text="Explore thousands of high-quality calendar week view images on Dribbble. Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text=" Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+                <BoxView Color="Gray"
+             HeightRequest="1"
+             HorizontalOptions="Fill" />
+                <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="22" FontAttributes="Bold"/>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text="Explore thousands of high-quality calendar week view images on Dribbble. Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <ImageButton Grid.Column="0"
+                HeightRequest="30"
+                WidthRequest="30"        
+                Source="profile.png"
+                VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Profile" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text=" Your resource to get inspired, discover and connect with designers worldwide." HorizontalTextAlignment="Start" FontSize="15"/>
+                    </VerticalStackLayout>
+                    <Switch Grid.Column="2"/>
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

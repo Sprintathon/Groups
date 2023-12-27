@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿global using App.ViewModels;
+global using CommunityToolkit.Mvvm.ComponentModel;
+
+using Microsoft.Extensions.Logging;
 
 namespace App
 {
@@ -8,8 +11,8 @@ namespace App
         {
             var builder = MauiApp.CreateBuilder();
             builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
+              .UseMauiApp<App>()
+              .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿global using Microsoft.AspNetCore.Identity;
 namespace Shared.Models
 {
-    public class ApplicationUser : BaseModel
+    public class ApplicationUser : IdentityUser
     {
         // Properties
         public string FirstName { get; set; }
