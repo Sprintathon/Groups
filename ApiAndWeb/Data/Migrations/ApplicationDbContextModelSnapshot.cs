@@ -179,7 +179,6 @@ namespace ApiAndWeb.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AvatarUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -215,6 +214,10 @@ namespace ApiAndWeb.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -247,6 +250,89 @@ namespace ApiAndWeb.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Shared.Models.Color", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Hex")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Hex = "#8AFF0000",
+                            Name = "Red"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Hex = "#8A00FF00",
+                            Name = "Green"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Hex = "#8A0000FF",
+                            Name = "Blue"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Hex = "#8AFFFF00",
+                            Name = "Yellow"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Hex = "#8A800080",
+                            Name = "Purple"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Hex = "#8AFFA500",
+                            Name = "Orange"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Hex = "#8AA52A2A",
+                            Name = "Brown"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Hex = "#8AFFC0CB",
+                            Name = "Pink"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Hex = "#8A000000",
+                            Name = "Black"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Hex = "#8AFFFFFF",
+                            Name = "White"
+                        });
+                });
+
             modelBuilder.Entity("Shared.Models.EventSchedule", b =>
                 {
                     b.Property<int>("Id")
@@ -254,6 +340,9 @@ namespace ApiAndWeb.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -288,19 +377,25 @@ namespace ApiAndWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AvatarUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ColorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GroupTypeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ColorId");
+
+                    b.HasIndex("GroupTypeId");
 
                     b.ToTable("Groups");
                 });
@@ -314,7 +409,6 @@ namespace ApiAndWeb.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AvatarUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
@@ -333,6 +427,65 @@ namespace ApiAndWeb.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("GroupEvents");
+                });
+
+            modelBuilder.Entity("Shared.Models.GroupType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GroupTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Image = "work",
+                            Name = "Work"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Image = "#study",
+                            Name = "Study"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Image = "#library",
+                            Name = "Library"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Image = "class",
+                            Name = "Class"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Image = "#business",
+                            Name = "Business"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Image = "#study",
+                            Name = "Other"
+                        });
                 });
 
             modelBuilder.Entity("Shared.Models.Venue", b =>
@@ -443,6 +596,25 @@ namespace ApiAndWeb.Migrations
                     b.Navigation("GroupEvent");
 
                     b.Navigation("Venue");
+                });
+
+            modelBuilder.Entity("Shared.Models.Group", b =>
+                {
+                    b.HasOne("Shared.Models.Color", "Color")
+                        .WithMany()
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Shared.Models.GroupType", "GroupType")
+                        .WithMany()
+                        .HasForeignKey("GroupTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Color");
+
+                    b.Navigation("GroupType");
                 });
 
             modelBuilder.Entity("Shared.Models.GroupEvent", b =>

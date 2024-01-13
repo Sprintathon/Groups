@@ -1,311 +1,144 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="App.Views.GroupsPage"
-             Title="GroupsPage">
-    <Grid ColumnDefinitions="*,*"
-          RowDefinitions="Auto, Auto, *"
-          Padding="20" 
-          RowSpacing="20" >
-        <Grid Grid.ColumnSpan="2" ColumnDefinitions="Auto, *" ColumnSpacing="10" >
-            <ImageButton Grid.Column="1"
-                         HeightRequest="30"
-                         WidthRequest="30"        
-                         Source="search.png"
-                         VerticalOptions="Center"
-                         HorizontalOptions="End"/>
+<ContentPage
+    x:Class="App.Views.GroupsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:Shared.Models;assembly=Shared"
+    xmlns:viewmodel="clr-namespace:App.ViewModels"
+    Title="GroupsPage">
+    <Grid
+        Padding="20"
+        ColumnDefinitions="*,*"
+        RowDefinitions="Auto, Auto, *"
+        RowSpacing="5">
+        <Grid
+            Grid.ColumnSpan="2"
+            ColumnDefinitions="*, Auto"
+            ColumnSpacing="10">
+            <ImageButton
+                Grid.Column="1"
+                Command="{Binding SearchCommand}"
+                HeightRequest="30"
+                HorizontalOptions="End"
+                IsEnabled="{Binding IsNotBusy}"
+                IsVisible="{Binding IsNotBusy}"
+                Source="search.png"
+                VerticalOptions="Center"
+                WidthRequest="30" />
+            <ActivityIndicator
+                Grid.Column="1"
+                HeightRequest="30"
+                HorizontalOptions="End"
+                IsRunning="true"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Center"
+                WidthRequest="30" />
             <VerticalStackLayout Grid.Column="0">
-                <Label Text="Groups" HorizontalTextAlignment="Start" FontSize="30" FontAttributes="Bold"/>
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="30"
+                    HorizontalTextAlignment="Start"
+                    Text="Groups" />
             </VerticalStackLayout>
         </Grid>
-        <SearchBar Grid.Row="1" Grid.ColumnSpan="2" Placeholder="Type to search"/>
+        <SearchBar
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            IsEnabled="{Binding IsNotBusy}"
+            IsVisible="{Binding IsSearching}"
+            Placeholder="Type to search" />
+        <RefreshView
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Margin="0"
+            Padding="0"
+            Command="{Binding LoadGroupsCommand}"
+            IsEnabled="{Binding IsNotBusy}"
+            IsRefreshing="{Binding IsRefreshing}"
+            IsVisible="{Binding IsNotSearching}">
 
-            
-        <ScrollView VerticalScrollBarVisibility="Never"  Grid.Row="2" Grid.ColumnSpan="2" Padding="0" Margin="0">
-            <VerticalStackLayout Spacing="20">
-                <Frame BorderColor="Transparent"
-                      BackgroundColor="AliceBlue"
-                       CornerRadius="30"
-                       Padding="20"
-                       MinimumHeightRequest="100">
-                    <Grid ColumnSpacing="10" ColumnDefinitions="Auto, *" >
-                        <ImageButton Grid.Column="0"
-                                     HeightRequest="50"
-                                     WidthRequest="50"        
-                                     Source="logo.png"
-                                     VerticalOptions="Center" />
-                        <VerticalStackLayout Grid.Column="1" Spacing="0" >
-                            <Grid ColumnDefinitions="*,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
+            <ScrollView VerticalScrollBarVisibility="Never">
+                <VerticalStackLayout Spacing="20">
+                    <CollectionView ItemsSource="{Binding Groups}">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Group">
+                                <Frame
+                                    Margin="0,5"
+                                    Padding="20"
+                                    BackgroundColor="{Binding Color.Hex}"
+                                    BorderColor="Transparent"
+                                    CornerRadius="30"
+                                    MinimumHeightRequest="100">
+                                    <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                                        <ImageButton
+                                            Grid.Column="0"
                                             HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="many.png"
-                                            VerticalOptions="Center" />
-                                <Label  Grid.Column="1" Text="55" FontSize="15" FontAttributes="Bold" 
-                                        VerticalOptions="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                                <Label Text="Sptintathon" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
+                                            IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:GroupsViewModel}}, Path=IsNotBusy}"
+                                            Source="logo.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="40" />
+                                        <VerticalStackLayout Grid.Column="1" Spacing="0">
+                                            <Grid Margin="0" ColumnDefinitions="*,Auto">
+                                                <ImageButton
+                                                    Grid.Column="1"
+                                                    HeightRequest="40"
+                                                    IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:GroupsViewModel}}, Path=IsNotBusy}"
+                                                    Source="many.png"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="40" />
+                                                <Label
+                                                    Grid.Column="1"
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Center"
+                                                    Text="55"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    FontSize="12"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="{Binding Name}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </Grid>
 
-                            <Grid ColumnDefinitions="*,Auto,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="login.png"
-                                            VerticalOptions="Center" />
-                                <Label Text="Lorem ipsum is a dummy text used to replace text in some areas just for the purpose of an example." FontSize="17" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-                        </VerticalStackLayout>
+                                            <Grid Margin="0" ColumnDefinitions="*,Auto,Auto">
+                                                <ImageButton
+                                                    Grid.Column="1"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:GroupsViewModel}}, Path=JoinCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    HeightRequest="40"
+                                                    IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:GroupsViewModel}}, Path=IsNotBusy}"
+                                                    Source="login.png"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="40" />
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    FontSize="11"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="{Binding Description}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </Grid>
+                                        </VerticalStackLayout>
 
-                    </Grid>
-                </Frame>
-                <Frame BorderColor="Transparent"
-                      BackgroundColor="AliceBlue"
-                       CornerRadius="30"
-                       Padding="20"
-                       MinimumHeightRequest="100">
-                    <Grid ColumnSpacing="10" ColumnDefinitions="Auto, *" >
-                        <ImageButton Grid.Column="0"
-                                     HeightRequest="50"
-                                     WidthRequest="50"        
-                                     Source="logo.png"
-                                     VerticalOptions="Center" />
-                        <VerticalStackLayout Grid.Column="1" Spacing="0" >
-                            <Grid ColumnDefinitions="*,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="many.png"
-                                            VerticalOptions="Center" />
-                                <Label  Grid.Column="1" Text="55" FontSize="15" FontAttributes="Bold" 
-                                        VerticalOptions="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                                <Label Text="Sptintathon" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
+                                    </Grid>
+                                </Frame>
 
-                            <Grid ColumnDefinitions="*,Auto,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="login.png"
-                                            VerticalOptions="Center" />
-                                <Label Text="Lorem ipsum is a dummy text used to replace text in some areas just for the purpose of an example." FontSize="17" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-                        </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-                    </Grid>
-                </Frame>
-                <Frame BorderColor="Transparent"
-                      BackgroundColor="AliceBlue"
-                       CornerRadius="30"
-                       Padding="20"
-                       MinimumHeightRequest="100">
-                    <Grid ColumnSpacing="10" ColumnDefinitions="Auto, *" >
-                        <ImageButton Grid.Column="0"
-                                     HeightRequest="50"
-                                     WidthRequest="50"        
-                                     Source="logo.png"
-                                     VerticalOptions="Center" />
-                        <VerticalStackLayout Grid.Column="1" Spacing="0" >
-                            <Grid ColumnDefinitions="*,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="many.png"
-                                            VerticalOptions="Center" />
-                                <Label  Grid.Column="1" Text="55" FontSize="15" FontAttributes="Bold" 
-                                        VerticalOptions="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                                <Label Text="Sptintathon" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
+                </VerticalStackLayout>
 
-                            <Grid ColumnDefinitions="*,Auto,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="login.png"
-                                            VerticalOptions="Center" />
-                                <Label Text="Lorem ipsum is a dummy text used to replace text in some areas just for the purpose of an example." FontSize="17" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-                        </VerticalStackLayout>
+            </ScrollView>
 
-                    </Grid>
-                </Frame>
-                <Frame BorderColor="Transparent"
-                      BackgroundColor="AliceBlue"
-                       CornerRadius="30"
-                       Padding="20"
-                       MinimumHeightRequest="100">
-                    <Grid ColumnSpacing="10" ColumnDefinitions="Auto, *" >
-                        <ImageButton Grid.Column="0"
-                                     HeightRequest="50"
-                                     WidthRequest="50"        
-                                     Source="logo.png"
-                                     VerticalOptions="Center" />
-                        <VerticalStackLayout Grid.Column="1" Spacing="0" >
-                            <Grid ColumnDefinitions="*,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="many.png"
-                                            VerticalOptions="Center" />
-                                <Label  Grid.Column="1" Text="55" FontSize="15" FontAttributes="Bold" 
-                                        VerticalOptions="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                                <Label Text="Sptintathon" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-
-                            <Grid ColumnDefinitions="*,Auto,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="login.png"
-                                            VerticalOptions="Center" />
-                                <Label Text="Lorem ipsum is a dummy text used to replace text in some areas just for the purpose of an example." FontSize="17" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-                        </VerticalStackLayout>
-
-                    </Grid>
-                </Frame>
-                <Frame BorderColor="Transparent"
-                      BackgroundColor="AliceBlue"
-                       CornerRadius="30"
-                       Padding="20"
-                       MinimumHeightRequest="100">
-                    <Grid ColumnSpacing="10" ColumnDefinitions="Auto, *" >
-                        <ImageButton Grid.Column="0"
-                                     HeightRequest="50"
-                                     WidthRequest="50"        
-                                     Source="logo.png"
-                                     VerticalOptions="Center" />
-                        <VerticalStackLayout Grid.Column="1" Spacing="0" >
-                            <Grid ColumnDefinitions="*,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="many.png"
-                                            VerticalOptions="Center" />
-                                <Label  Grid.Column="1" Text="55" FontSize="15" FontAttributes="Bold" 
-                                        VerticalOptions="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                                <Label Text="Sptintathon" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-
-                            <Grid ColumnDefinitions="*,Auto,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="login.png"
-                                            VerticalOptions="Center" />
-                                <Label Text="Lorem ipsum is a dummy text used to replace text in some areas just for the purpose of an example." FontSize="17" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-                        </VerticalStackLayout>
-
-                    </Grid>
-                </Frame>
-                <Frame BorderColor="Transparent"
-                      BackgroundColor="AliceBlue"
-                       CornerRadius="30"
-                       Padding="20"
-                       MinimumHeightRequest="100">
-                    <Grid ColumnSpacing="10" ColumnDefinitions="Auto, *" >
-                        <ImageButton Grid.Column="0"
-                                     HeightRequest="50"
-                                     WidthRequest="50"        
-                                     Source="logo.png"
-                                     VerticalOptions="Center" />
-                        <VerticalStackLayout Grid.Column="1" Spacing="0" >
-                            <Grid ColumnDefinitions="*,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="many.png"
-                                            VerticalOptions="Center" />
-                                <Label  Grid.Column="1" Text="55" FontSize="15" FontAttributes="Bold" 
-                                        VerticalOptions="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                                <Label Text="Sptintathon" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-
-                            <Grid ColumnDefinitions="*,Auto,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="login.png"
-                                            VerticalOptions="Center" />
-                                <Label Text="Lorem ipsum is a dummy text used to replace text in some areas just for the purpose of an example." FontSize="17" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-                        </VerticalStackLayout>
-
-                    </Grid>
-                </Frame>
-                <Frame BorderColor="Transparent"
-                      BackgroundColor="AliceBlue"
-                       CornerRadius="30"
-                       Padding="20"
-                       MinimumHeightRequest="100">
-                    <Grid ColumnSpacing="10" ColumnDefinitions="Auto, *" >
-                        <ImageButton Grid.Column="0"
-                                     HeightRequest="50"
-                                     WidthRequest="50"        
-                                     Source="logo.png"
-                                     VerticalOptions="Center" />
-                        <VerticalStackLayout Grid.Column="1" Spacing="0" >
-                            <Grid ColumnDefinitions="*,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="many.png"
-                                            VerticalOptions="Center" />
-                                <Label  Grid.Column="1" Text="55" FontSize="15" FontAttributes="Bold" 
-                                        VerticalOptions="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                                <Label Text="Sptintathon" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-
-                            <Grid ColumnDefinitions="*,Auto,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="login.png"
-                                            VerticalOptions="Center" />
-                                <Label Text="Lorem ipsum is a dummy text used to replace text in some areas just for the purpose of an example." FontSize="17" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-                        </VerticalStackLayout>
-
-                    </Grid>
-                </Frame>
-                <Frame BorderColor="Transparent"
-                      BackgroundColor="AliceBlue"
-                       CornerRadius="30"
-                       Padding="20"
-                       MinimumHeightRequest="100">
-                    <Grid ColumnSpacing="10" ColumnDefinitions="Auto, *" >
-                        <ImageButton Grid.Column="0"
-                                     HeightRequest="50"
-                                     WidthRequest="50"        
-                                     Source="logo.png"
-                                     VerticalOptions="Center" />
-                        <VerticalStackLayout Grid.Column="1" Spacing="0" >
-                            <Grid ColumnDefinitions="*,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="many.png"
-                                            VerticalOptions="Center" />
-                                <Label  Grid.Column="1" Text="55" FontSize="15" FontAttributes="Bold" 
-                                        VerticalOptions="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                                <Label Text="Sptintathon" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-
-                            <Grid ColumnDefinitions="*,Auto,Auto" Margin="0">
-                                <ImageButton Grid.Column="1"
-                                            HeightRequest="40"
-                                            WidthRequest="40"        
-                                            Source="login.png"
-                                            VerticalOptions="Center" />
-                                <Label Text="Lorem ipsum is a dummy text used to replace text in some areas just for the purpose of an example." FontSize="17" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" />
-                            </Grid>
-                        </VerticalStackLayout>
-
-                    </Grid>
-                </Frame>
-            </VerticalStackLayout>
-
-        </ScrollView>
+        </RefreshView>
 
     </Grid>
 

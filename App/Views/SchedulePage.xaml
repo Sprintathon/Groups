@@ -1,168 +1,169 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="App.Views.SchedulePage"
-             Title="SchedulePage"
-             Shell.NavBarIsVisible="False"
-             Background="#74423C"
-             Shell.TabBarBackgroundColor="#74423C">
-    <Grid ColumnDefinitions="*"
-          RowDefinitions="Auto, *"
-          Margin="0">
-        <VerticalStackLayout
-          Padding="20" 
-            >
-            <Label Grid.Row="0" Grid.ColumnSpan="2"
-            Text="December"
-             FontSize="30"
-            FontAttributes="Bold"
-            VerticalOptions="Start" 
-            HorizontalOptions="Start" />
+<ContentPage
+    x:Class="App.Views.SchedulePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:Shared.Models;assembly=Shared"
+    xmlns:model2="clr-namespace:App.Models"
+    xmlns:viewmodel="clr-namespace:App.ViewModels"
+    Title="SchedulePage"
+    Background="#74423C"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarBackgroundColor="#74423C">
 
-            <Frame  BorderColor="Transparent" BackgroundColor="Transparent"
-               Grid.Row="1" 
+
+    <Grid
+        Margin="0"
+        ColumnDefinitions="*"
+        RowDefinitions="Auto, *">
+        <VerticalStackLayout Padding="20">
+            <Label
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                FontAttributes="Bold"
+                FontSize="30"
+                HorizontalOptions="Start"
+                Text="December"
+                VerticalOptions="Start" />
+
+            <Frame
+                Grid.Row="1"
+                Grid.RowSpan="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
                 Padding="0"
-               Grid.Column="0" 
-               Grid.RowSpan="1" 
-               Grid.ColumnSpan="2"
-               CornerRadius="30">
-                <Grid ColumnDefinitions="*,*,*,*,*,*,*" Margin="0,10">
-                    <VerticalStackLayout Grid.Column="0">
-                        <Label Text="Mon" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                        <Label Text="15" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout Grid.Column="1">
-                        <Frame BorderColor="Transparent" BackgroundColor="#6C6C6C"
-                       CornerRadius="100" Padding="0">
-                            <VerticalStackLayout Padding="0">
-                                <Label Text="Tue" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                                <Label Text="16" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                            </VerticalStackLayout>
-                        </Frame>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout Grid.Column="2">
-                        <Label Text="Wed" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                        <Label Text="16" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout Grid.Column="3">
-                        <Label Text="Thu" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                        <Label Text="17" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout Grid.Column="4">
-                        <Label Text="Fri" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                        <Label Text="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout Grid.Column="5">
-                        <Label Text="Sat" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                        <Label Text="19" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout Grid.Column="6">
-                        <Label Text="Sun" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                        <Label Text="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"/>
-                    </VerticalStackLayout>
-                </Grid>
+                BackgroundColor="Transparent"
+                BorderColor="Transparent">
 
+                <CollectionView ItemsSource="{Binding Days}" SelectionMode="Single">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="7" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate x:DataType="model2:CalendarDay">
+                            <Frame
+                                Padding="5"
+                                BackgroundColor="{Binding Color}"
+                                BorderColor="{Binding Color}"
+                                CornerRadius="10">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ScheduleViewModel}}, Path=SelectDayCommand}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <VerticalStackLayout Grid.Column="{Binding DayIndex}">
+                                    <Label
+                                        FontSize="10"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding DayOfWeek}"
+                                        VerticalTextAlignment="Center" />
+                                    <Label
+                                        FontSize="15"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding DayOfMonth}"
+                                        VerticalTextAlignment="Center" />
+                                </VerticalStackLayout>
+                            </Frame>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Frame>
-
         </VerticalStackLayout>
 
-        <Frame BorderColor="Transparent" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" Grid.Row="2"
-                    Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="1"
-               CornerRadius="30">
-            <ScrollView VerticalScrollBarVisibility="Never">
-                <VerticalStackLayout Spacing="20" Padding="10">
-                    <Label Text="Tuesday, December 16" FontSize="30"/>
-                    <Frame BorderColor="Transparent"
-                      BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
-                       CornerRadius="30"
-                       Padding="20"
-                       MinimumHeightRequest="100">
-                        <StackLayout Spacing="10">
-                            <Frame BorderColor="Transparent"
-                               BackgroundColor="#80e5e5e5"
-                               CornerRadius="100"
-                               Padding="10,5"
-                               HorizontalOptions="Start">
-                                <Label Text="Sptintathon" FontSize="20" FontAttributes="Bold" />
-                            </Frame>
-                            <Label Text="A 3-Day event to help you learn build and deploy websites, backend, and mobile applications"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               />
-                            <Label Text="09:30-16:00"/>
-                        </StackLayout>
-                    </Frame>
-                    <Frame BorderColor="Transparent"
-                      BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
-                       CornerRadius="30"
-                       Padding="20"
-                       MinimumHeightRequest="100">
-                        <StackLayout Spacing="10">
-                            <Frame BorderColor="Transparent"
-                               BackgroundColor="#80e5e5e5"
-                               CornerRadius="100"
-                               Padding="10,5"
-                               HorizontalOptions="Start">
-                                <Label Text="Sptintathon" FontSize="20" FontAttributes="Bold" />
-                            </Frame>
-                            <Label Text="A 3-Day event to help you learn build and deploy websites, backend, and mobile applications"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               />
-                            <Label Text="09:30-16:00"/>
-                        </StackLayout>
-                    </Frame>
-                    <Frame BorderColor="Transparent"
-                      BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
-                       CornerRadius="30"
-                       Padding="20"
-                       MinimumHeightRequest="100">
-                        <StackLayout Spacing="10">
-                            <Frame BorderColor="Transparent"
-                               BackgroundColor="#80e5e5e5"
-                               CornerRadius="100"
-                               Padding="10,5"
-                               HorizontalOptions="Start">
-                                <Label Text="Sptintathon" FontSize="20" FontAttributes="Bold" />
-                            </Frame>
-                            <Label Text="A 3-Day event to help you learn build and deploy websites, backend, and mobile applications"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               />
-                            <Label Text="09:30-16:00"/>
-                        </StackLayout>
-                    </Frame>
-                    <Frame BorderColor="Transparent"
-                      BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
-                       CornerRadius="3.0"
-                       Padding="20"
-                       MinimumHeightRequest="100">
-                        <StackLayout Spacing="10">
-                            <Frame BorderColor="Transparent"
-                               BackgroundColor="#80e5e5e5"
-                               CornerRadius="100"
-                               Padding="10,5"
-                               HorizontalOptions="Start">
-                                <Label Text="Sptintathon" FontSize="20" FontAttributes="Bold" />
-                            </Frame>
-                            <Label Text="A 3-Day event to help you learn build and deploy websites, backend, and mobile applications"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               />
-                            <Label Text="09:30-16:00"/>
-                        </StackLayout>
-                    </Frame>
-                </VerticalStackLayout>
+        <Frame
+            Grid.Row="2"
+            Grid.RowSpan="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="1"
+            BackgroundColor="{AppThemeBinding Light={StaticResource White},
+                                              Dark={StaticResource Black}}"
+            BorderColor="Transparent"
+            CornerRadius="30">
+            <RefreshView Command="{Binding RefreshScheduleCommand}" IsRefreshing="{Binding IsRefreshing}">
+                <ScrollView VerticalScrollBarVisibility="Never">
+                    <VerticalStackLayout>
+                        <Label FontSize="20" Text="{Binding SelectedDay.Details}" />
+                        <CollectionView IsGrouped="True" ItemsSource="{Binding SelectedDay.ScheduleGroups}">
+                            <CollectionView.GroupHeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        HorizontalOptions="End"
+                                        Margin="10,4"
+                                        Text="{Binding Hour, StringFormat='{0:D}:00'}" />
+                                </DataTemplate>
+                            </CollectionView.GroupHeaderTemplate>
+                            <CollectionView.ItemTemplate>
 
-            </ScrollView>
+                                <DataTemplate x:DataType="model:EventSchedule">
+                                    <Frame
+                                        Margin="0,10"
+                                        Padding="20"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary},
+                                                                          Dark={StaticResource PrimaryDark}}"
+                                        BorderColor="Transparent"
+                                        CornerRadius="30"
+                                        MinimumHeightRequest="100">
+                                        <StackLayout Spacing="10">
+                                            <HorizontalStackLayout Spacing="12">
+                                                <Frame
+                                                    Padding="10,5"
+                                                    BackgroundColor="#80e5e5e5"
+                                                    BorderColor="Transparent"
+                                                    CornerRadius="100"
+                                                    HorizontalOptions="Start">
+                                                    <Label
+                                                        FontAttributes="Bold"
+                                                        FontSize="10"
+                                                        Text="{Binding GroupEvent.Name}" />
+                                                </Frame>
+                                                <Frame
+                                                    Padding="10,5"
+                                                    BackgroundColor="#80e5e5e5"
+                                                    BorderColor="Transparent"
+                                                    CornerRadius="100"
+                                                    HorizontalOptions="Start">
+                                                    <Label
+                                                        FontAttributes="Bold"
+                                                        FontSize="10"
+                                                        Text="{Binding GroupEvent.Group.Name}" />
+                                                </Frame>
+                                            </HorizontalStackLayout>
+
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="12"
+                                                Text="{Binding GroupEvent.Description}" />
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="12"
+                                                Text="{Binding Description}" />
+                                            <Label FontSize="10" Text="{Binding StartAndEndTime}" />
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                </ScrollView>
+
+            </RefreshView>
         </Frame>
 
-        <Frame BorderColor="Transparent" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" Grid.Row="2" ZIndex="-1000"
-               Margin="0, 50, 0,0"
-                    Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="1"
-               CornerRadius="0">
-        </Frame>
-       
+        <Frame
+            Grid.Row="2"
+            Grid.RowSpan="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="1"
+            Margin="0,50,0,0"
+            BackgroundColor="{AppThemeBinding Light={StaticResource White},
+                                              Dark={StaticResource Black}}"
+            BorderColor="Transparent"
+            CornerRadius="0"
+            ZIndex="-1000" />
+
     </Grid>
 
 </ContentPage>

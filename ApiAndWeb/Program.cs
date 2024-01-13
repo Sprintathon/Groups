@@ -52,9 +52,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseMigrationsEndPoint();
 }
 else
 {
@@ -73,5 +73,5 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
-
+app.MapControllers();
 app.Run();
