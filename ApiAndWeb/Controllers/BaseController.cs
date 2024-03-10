@@ -2,6 +2,7 @@
 {
     [ApiController]
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class BaseController<T> : ControllerBase where T : BaseModel
     {
         public readonly ApplicationDbContext _context;

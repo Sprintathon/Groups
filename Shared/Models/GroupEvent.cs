@@ -11,11 +11,11 @@ namespace Shared.Models
         // Properties
         public string Name { get; set; }
         public string Description { get; set; }
-        public string AvatarUrl { get; set; }
+        public string? AvatarUrl { get; set; }
 
         // Navigation Properties
-        public virtual List<EventSchedule> Schedules { get; set; }
+        public virtual List<EventSchedule>? Schedules { get; set; }
         public int GroupId { get; set; }
-        public virtual Group Group { get; set; }
+        public virtual Group? Group { get; set; }
     }
 }

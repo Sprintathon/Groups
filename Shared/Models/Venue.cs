@@ -14,6 +14,6 @@ namespace Shared.Models
         public string AvatarUrl { get; set; }
 
         // Navigation Properties
-        public virtual List<EventSchedule> Schedules { get; set; }
+        public virtual List<EventSchedule>? Schedules { get; set; }
     }
 }
